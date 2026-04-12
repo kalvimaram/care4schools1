@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care4Schools | Kalvi Maram Foundation - Pure Water & Clean Schools</title>
+    <meta name="description"
+        content="Impactful water and sanitation project by Kalvi Maram Foundation. 52 schools, 6900+ students, 100% pure water.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            /* Design Tokens - THE GREEN PALETTE */
+            --color-primary: #15803d;
+            /* Rich Forest Green */
+            --color-primary-hover: #166534;
+            --color-primary-soft: #f0fdf4;
+            /* Very Light Mint */
+            --color-accent: #22c55e;
+            /* Vibrant Emerald */
+            --color-bg: #fcfdfc;
+            --color-surface: #ffffff;
+            --color-text: #064e3b;
+            /* Deep Dark Green-Black */
+            --color-text-muted: #475569;
+            --color-border: #dcfce7;
+
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1.25rem;
+            --shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #061f17;
+            /* Midnight Green */
+            --color-surface: #0a2f23;
+            --color-text: #ecfdf5;
+            --color-text-muted: #94a3b8;
+            --color-border: #14532d;
+            --color-primary-soft: #14532d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease;
+        }
+
+        h1,
+        h2,
+        h3,
+        .display-font {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* Typography Scale */
+        .h1 {
+            font-size: clamp(2.8rem, 9vw, 5.5rem);
+        }
+
+        .h2 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+        }
+
+        .h3 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border);
+            padding: 1.25rem 0;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(6, 31, 23, 0.8);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--color-primary-soft);
+            border: 1px solid var(--color-border);
+            color: var(--color-primary);
+            cursor: pointer;
+            padding: 0.6rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--color-border);
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-drawer-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(320px, 85vw);
+            height: 100%;
+            background: var(--color-surface);
+            z-index: 201;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .mobile-drawer.open {
+            right: 0;
+        }
+
+        .mobile-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .mobile-drawer-close {
+            background: var(--color-primary-soft);
+            border: 1px solid var(--color-border);
+            color: var(--color-primary);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .mobile-drawer-close:hover {
+            background: var(--color-border);
+        }
+
+        .mobile-drawer a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mobile-drawer a:hover {
+            background: var(--color-primary-soft);
+            color: var(--color-accent);
+        }
+
+        .mobile-drawer .btn {
+            margin-top: 1rem;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(21, 128, 61, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--color-primary);
+            background: transparent;
+            color: var(--color-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-primary-soft);
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding-top: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero {
+                grid-template-columns: 1.2fr 1fr;
+                min-height: 85vh;
+            }
+        }
+
+        .hero-image-stack {
+            position: relative;
+            padding: 1rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--color-primary-soft);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 8px solid var(--color-surface);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .floating-stat {
+            position: absolute;
+            bottom: 2rem;
+            right: -1rem;
+            background: var(--color-accent);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--color-primary-soft);
+            color: var(--color-primary);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            border: 1px solid var(--color-border);
+        }
+
+        /* Impact Dashboard */
+        .impact-section {
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-primary-soft) 100%);
+            border-radius: var(--radius-lg);
+            margin: 0 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-card:hover {
+            border-color: var(--color-accent);
+            transform: scale(1.02);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-family: 'Instrument Serif', serif;
+            color: var(--color-primary);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .progress-container {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--color-border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--color-accent);
+            width: 0%;
+            transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
+        }
+
+        /* Tier Cards */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .tier-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        .tier-card {
+            background: var(--color-surface);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card .btn {
+            margin-top: auto;
+        }
+
+        .tier-card.featured {
+            border: 2px solid var(--color-accent);
+            background: var(--color-primary-soft);
+        }
+
+        .tier-card.featured::after {
+            content: "Most Impact";
+            position: absolute;
+            top: 1.5rem;
+            right: -2rem;
+            background: var(--color-accent);
+            color: white;
+            padding: 0.25rem 2.5rem;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .tier-price {
+            font-size: 3.5rem;
+            font-family: 'Instrument Serif';
+            margin: 1.5rem 0;
+            color: var(--color-primary);
+        }
+
+        /* Volunteer Roles */
+        .roles-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 480px) {
+            .roles-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .role-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+
+        /* Theme Toggle Custom */
+        #theme-toggle {
+            background: var(--color-primary-soft);
+            border: 1px solid var(--color-border);
+            color: var(--color-primary);
+            cursor: pointer;
+            padding: 0.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        #theme-toggle:hover {
+            background: var(--color-border);
+        }
+
+        [data-theme="dark"] #theme-toggle {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--color-accent);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        [data-theme="dark"] .btn-primary {
+            background: var(--color-accent);
+            color: #051b14;
+            box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.3);
+        }
+
+        [data-theme="dark"] .btn-primary:hover {
+            background: #16a34a;
+        }
+
+        /* Pillar Styling */
+        .pillar-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .pillar-num {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            margin-top: 0.6em;
+            flex-shrink: 0;
+        }
+
+        .pillar-text {
+            color: var(--color-primary);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s cubic-bezier(0.17, 0.67, 0.83, 0.67) all;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-surface);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: 2px solid var(--color-accent);
+        }
+
+        /* ===== RESPONSIVE OVERRIDES ===== */
+
+        /* Bank details responsive */
+        .bank-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .bank-detail-row:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        @media (max-width: 400px) {
+            .bank-detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+        }
+
+        /* Small phones: 320px - 480px */
+        @media (max-width: 480px) {
+            section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                gap: 2rem;
+                padding-top: 1rem;
+            }
+
+            .floating-stat {
+                right: 0.5rem;
+                bottom: 1rem;
+                padding: 1rem;
+            }
+
+            .floating-stat div:last-child {
+                font-size: 1.3rem !important;
+            }
+
+            .stat-card {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .tier-card {
+                padding: 1.75rem;
+            }
+
+            .impact-section {
+                margin: 0;
+                border-radius: var(--radius-md);
+            }
+
+            .whatsapp-float {
+                width: 52px;
+                height: 52px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            footer {
+                padding: 3rem 0 1.5rem;
+            }
+        }
+
+        /* Tablet: 481px - 768px */
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                gap: 3rem;
+            }
+
+            .stats-grid {
+                margin-top: 2.5rem;
+            }
+        }
+
+        /* Volunteer section responsive */
+        .volunteer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .volunteer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 4rem;
+            }
+        }
+
+        /* Footer grid responsive */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 4rem;
+            }
+        }
+
+        /* Story cards responsive */
+        .story-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 700px) {
+            .story-cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            }
+        }
+
+        /* Ensure overflow doesn't happen */
+        img,
+        video,
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* QR code responsive */
+        @media (max-width: 360px) {
+
+            #upi-qr-code img,
+            #upi-qr-code canvas {
+                width: 130px !important;
+                height: 130px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <i data-lucide="leaf" style="fill: var(--color-accent); stroke: none;"></i>
+                Care4Schools
+            </a>
+            <div class="nav-links">
+                <a href="#story">Our Story</a>
+                <a href="#impact">Our Impact</a>
+                <a href="#schools">Schools</a>
+                <a href="#volunteer">Join Us</a>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i data-lucide="moon" id="theme-icon" style="width: 20px;"></i>
+                </button>
+                <a href="#donate" class="btn btn-primary"
+                    style="padding: 0.6rem 1.4rem; font-size: 0.9rem; color: white !important;">Contribute
+                    Now</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button id="theme-toggle-mobile" class="mobile-menu-btn" aria-label="Toggle dark mode"
+                    style="display: none;">
+                    <i data-lucide="moon" id="theme-icon-mobile" style="width: 20px;"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+                    <i data-lucide="menu" style="width: 22px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div class="mobile-drawer-header">
+            <a href="#" class="logo" onclick="closeDrawer()">
+                <i data-lucide="leaf" style="fill: var(--color-accent); stroke: none;"></i>
+                Care4Schools
+            </a>
+            <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close menu">
+                <i data-lucide="x" style="width: 20px;"></i>
+            </button>
+        </div>
+        <a href="#story" onclick="closeDrawer()"><i data-lucide="book-open"
+                style="width: 18px; color: var(--color-accent);"></i> Our Story</a>
+        <a href="#impact" onclick="closeDrawer()"><i data-lucide="bar-chart-3"
+                style="width: 18px; color: var(--color-accent);"></i> Our Impact</a>
+        <a href="#schools" onclick="closeDrawer()"><i data-lucide="hand-heart"
+                style="width: 18px; color: var(--color-accent);"></i>Schools</a>
+        <a href="#volunteer" onclick="closeDrawer()"><i data-lucide="users"
+                style="width: 18px; color: var(--color-accent);"></i> Join Us</a>
+        <a href="#donate" class="btn btn-primary" onclick="closeDrawer()" style="color: white !important;">Contribute
+            Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="container">
+        <div class="hero">
+            <div class="reveal">
+                <div class="badge">
+                    <i data-lucide="shield-check" style="width: 14px;"></i>
+                    Kalvi Maram Foundation Project
+                </div>
+                <h1 class="h1">
+                    <div class="pillar-row"><span class="pillar-text">Safe Water.</span></div>
+                    <div class="pillar-row"><span class="pillar-text">Clean Toilets.</span></div>
+                    <div class="pillar-row"><span class="pillar-text" style="color:var(--color-accent)">Happy
+                            Learning.</span></div>
+                </h1>
+                <p style="font-size: 1.4rem; margin: 2rem 0 3rem; color: var(--color-text-muted); max-width: 550px;">
+                    We install and maintain RO Water Purifier systems and provide weekly toilet deep cleaning support to
+                    <b>52
+                        government
+                        schools</b>
+                    across Tamil Nadu, serving <b>6900+ students</b> daily.
+                </p>
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <a href="#donate" class="btn btn-primary">Fund a School</a>
+                    <a href="https://wa.me/917357354545" class="btn btn-outline">
+                        <i data-lucide="message-circle"></i>
+                        Partner with us
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image-stack reveal" style="transition-delay: 0.2s;">
+                <div class="hero-image">
+                    <img src="safewater.jpeg" alt="Student drinking clean water">
+                </div>
+                <div class="floating-stat">
+                    <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; opacity: 0.9;">Daily
+                        Capacity</div>
+                    <div style="font-size: 1.8rem; font-family: 'Instrument Serif';">15,000+ Liters</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section id="story" style="padding: 6rem 0;">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+                <div class="badge reveal">
+                    <i data-lucide="book-open" style="width: 14px;"></i>
+                    Our Story
+                </div>
+                <h2 class="h2 reveal">From a Single Tweet<br>to a Movement.</h2>
+            </div>
+
+            <!-- Origin Story -->
+            <div class="reveal"
+                style="max-width: 800px; margin: 0 auto 4rem; position: relative; padding-left: 2rem; border-left: 3px solid var(--color-accent);">
+                <p style="font-size: 1.2rem; color: var(--color-text-muted); line-height: 1.8;">
+                    In 2023, <a href="https://x.com/AnandNodal/status/1609217072470568963" target="_blank"
+                        rel="noopener noreferrer"
+                        style="color: var(--color-accent); text-decoration: underline; font-weight: 600;">a single
+                        tweet</a> about crumbling school toilets in rural Tamil Nadu sparked something
+                    unexpected. What began as one person's outrage quickly grew into a collective mission — and
+                    <b style="color: var(--color-primary);">Kalvi Maram Foundation's "Care4Schools" project</b> was
+                    born.
+                </p>
+            </div>
+
+            <!-- What We Do -->
+            <div class="story-cards-grid">
+                <div class="reveal"
+                    style="background: var(--color-primary-soft); padding: 2.5rem; border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+                    <div
+                        style="background: var(--color-accent); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i data-lucide="droplets" style="width: 22px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem;">Safe Drinking Water</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.7;">
+                        We have installed and maintain <b>RO water purifiers across 52 government schools</b>, providing
+                        6,600+ students with consistent, daily access to safe, clean drinking water.
+                    </p>
+                </div>
+                <div class="reveal"
+                    style="background: var(--color-primary-soft); padding: 2.5rem; border-radius: var(--radius-lg); border: 1px solid var(--color-border); transition-delay: 0.15s;">
+                    <div
+                        style="background: var(--color-primary); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i data-lucide="sparkles" style="width: 22px;"></i>
+                    </div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 1rem;">Clean Sanitation</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.7;">
+                        We provide <b>weekly deep toilet cleaning support</b> to selected rural government schools —
+                        ensuring hygienic, dignified facilities that keep children, especially girls, in school.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mission Statement -->
+            <div class="reveal"
+                style="background: var(--color-text); color: white; padding: 3rem; border-radius: var(--radius-lg); text-align: center; max-width: 800px; margin: 0 auto;">
+                <i data-lucide="heart" style="width: 28px; color: var(--color-accent); margin-bottom: 1rem;"></i>
+                <p style="font-size: 1.25rem; font-family: 'Instrument Serif', serif; line-height: 1.6; opacity: 0.95;">
+                    "We believe every child deserves clean water, safe sanitation, quality guidance,
+                    and the chance to dream big."
+                </p>
+                <p
+                    style="margin-top: 1rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; font-weight: 600;">
+                    — Kalvi Maram Foundation
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Dashboard -->
+    <section id="impact" class="impact-section">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h2 class="h2 reveal">52 Schools. 6,900+ Lives. <br>One Mission.</h2>
+                <p class="reveal" style="margin-top: 1rem;">Real-time progress toward our 200-school milestone.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-target="52">0</span>
+                    <p style="font-weight: 600;">Active Schools</p>
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Progress</span> <span>26%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="26%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-target="6906">0</span>
+                    <p style="font-weight: 600;">Students Served</p>
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Growth</span> <span>65%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-target="98.7" data-suffix="%">0%</span>
+                    <p style="font-weight: 600;">RO System Uptime</p>
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Reliability</span> <span>Perfect</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="98.7%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-target="120">0</span>
+                    <p style="font-weight: 600;">Monthly Cleanings</p>
+                    <div class="progress-container">
+                        <div class="progress-label"><span>Operations</span> <span>Active</span></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donate" class="container" style="padding-bottom: 4rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div class="badge reveal">
+                <i data-lucide="hand-heart" style="width: 14px;"></i>
+                How to Contribute
+            </div>
+            <h2 class="h2 reveal">Support Our Mission</h2>
+            <p class="reveal"
+                style="margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; color: var(--color-text-muted); font-size: 1.1rem; line-height: 1.7;">
+                You can contribute to the Kalvi Maram Foundation through several secure channels. All donations are
+                tax-deductible under <b>Section 80G</b>, and Kalvi Maram Foundation will share the exemption certificate
+                via
+                email or WhatsApp.
+            </p>
+        </div>
+
+        <!-- 80G Tax Badge -->
+        <div class="reveal" style="display: flex; justify-content: center; margin-bottom: 3rem;">
+            <div
+                style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1.4rem; background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(21,128,61,0.08)); border: 1px solid var(--color-border); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--color-primary);">
+                <i data-lucide="shield-check" style="width: 16px; color: var(--color-accent);"></i>
+                All donations are 80G Tax Exempt
+            </div>
+        </div>
+
+        <div class="tier-grid">
+            <!-- Card 2: Bank Transfer -->
+            <div class="tier-card reveal" style="gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <div
+                        style="background: linear-gradient(135deg, var(--color-primary), #064e3b); color: white; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="landmark" style="width: 24px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.4rem; line-height: 1.2;">Bank Transfer</h3>
+                        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.25rem;">NEFT / RTGS /
+                            IMPS</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--color-text-muted); line-height: 1.7; font-size: 0.95rem;">
+                    Direct transfers can be made using the following account details:
+                </p>
+
+                <div
+                    style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: grid; gap: 0.75rem; font-size: 0.9rem;">
+                    <div class="bank-detail-row">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">Account Name</span>
+                        <span style="font-weight: 700; text-align: right;">KALVI MARAM FOUNDATION</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">Account No.</span>
+                        <span
+                            style="font-weight: 700; font-family: 'Inter', monospace; letter-spacing: 0.05em;">41535789284</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">Account Type</span>
+                        <span style="font-weight: 700;">Current Account</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">Bank</span>
+                        <span style="font-weight: 700;">State Bank of India</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">Branch</span>
+                        <span style="font-weight: 700;">PUDUR</span>
+                    </div>
+                    <div class="bank-detail-row" style="padding-bottom: 0; border-bottom: none;">
+                        <span style="color: var(--color-text-muted); font-weight: 500;">IFSC Code</span>
+                        <span
+                            style="font-weight: 700; color: var(--color-primary); font-family: 'Inter', monospace; letter-spacing: 0.05em;">SBIN0071148</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1: Digital Wallets & UPI -->
+            <div class="tier-card featured reveal" style="gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <div
+                        style="background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); color: white; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="smartphone" style="width: 24px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.4rem; line-height: 1.2;">Digital Wallets & UPI</h3>
+                        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.25rem;">Instant &
+                            Secure</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--color-text-muted); line-height: 1.7; font-size: 0.95rem;">
+                    Use apps like <b>PayTM</b>, <b>Google Pay</b>, <b>PhonePe</b>, <b>BHIM</b>, or <b>Amazon Pay</b>.
+                </p>
+
+                <div
+                    style="background: var(--color-primary-soft); border: 1px dashed var(--color-accent); border-radius: var(--radius-md); padding: 1.25rem; text-align: center;">
+                    <p
+                        style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: 0.5rem;">
+                        UPI ID</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+                        <span id="upi-id"
+                            style="font-size: 1.35rem; font-family: 'Instrument Serif', serif; color: var(--color-primary); font-weight: 500;">kalvimaram@sbi</span>
+                        <button onclick="copyUPI()" id="copy-upi-btn" title="Copy UPI ID"
+                            style="background: var(--color-primary); color: white; border: none; border-radius: 8px; padding: 0.4rem 0.7rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; transition: var(--transition);">
+                            <i data-lucide="copy" style="width: 14px;"></i> Copy
+                        </button>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <p
+                        style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: 0.75rem;">
+                        Scan to Donate</p>
+                    <div id="upi-qr-code"
+                        style="display: inline-block; padding: 0.75rem; background: white; border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Contact for Assistance -->
+            <div class="tier-card reveal" style="gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <div
+                        style="background: linear-gradient(135deg, #25d366, var(--color-primary)); color: white; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="headphones" style="width: 24px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.4rem; line-height: 1.2;">Contact for Assistance</h3>
+                        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.25rem;">We're here to
+                            help</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--color-text-muted); line-height: 1.7; font-size: 0.95rem;">
+                    If you prefer to coordinate your donation or have specific questions, you can reach out directly.
+                </p>
+
+                <div style="display: grid; gap: 1rem; flex-grow: 1;">
+                    <a href="https://wa.me/917357354545"
+                        style="display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--color-primary-soft); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text); transition: var(--transition);"
+                        onmouseover="this.style.borderColor='var(--color-accent)'"
+                        onmouseout="this.style.borderColor='var(--color-border)'">
+                        <div
+                            style="background: #25d366; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i data-lucide="message-circle" style="width: 20px;"></i>
+                        </div>
+                        <div>
+                            <p
+                                style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; color: var(--color-text-muted);">
+                                WhatsApp / Phone</p>
+                            <p style="font-weight: 700; font-size: 1.05rem;">+91-735-735-4545</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:donation@kalvimaram.org"
+                        style="display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--color-primary-soft); border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text); transition: var(--transition);"
+                        onmouseover="this.style.borderColor='var(--color-accent)'"
+                        onmouseout="this.style.borderColor='var(--color-border)'">
+                        <div
+                            style="background: var(--color-primary); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i data-lucide="mail" style="width: 20px;"></i>
+                        </div>
+                        <div>
+                            <p
+                                style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; color: var(--color-text-muted);">
+                                Email</p>
+                            <p style="font-weight: 700; font-size: 1.05rem;">donation@kalvimaram.org</p>
+                        </div>
+                    </a>
+                </div>
+
+                <a href="https://wa.me/917357354545" class="btn btn-primary" style="width: 100%; margin-top: auto;">
+                    <i data-lucide="message-circle" style="width: 18px;"></i>
+                    Connect via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <!--section id="volunteer" style="background: var(--color-text); color: var(--color-bg); padding: 5rem 0;">
+        <div class="container volunteer-grid">
+            <div class="reveal">
+                <h2 class="h2" style="color: white;">Join with us.</h2>
+                <p style="margin: 2rem 0; opacity: 0.8; font-size: 1.1rem;">We're looking for passionate individuals to
+                    help us scale from 52 to 200 schools this year.</p>
+
+                <div class="roles-list">
+                    <div class="role-item"><i data-lucide="wrench" style="color: var(--color-accent); width: 18px;"></i>
+                        Maintenance</div>
+                    <div class="role-item"><i data-lucide="camera" style="color: var(--color-accent); width: 18px;"></i>
+                        Storytelling</div>
+                    <div class="role-item"><i data-lucide="users" style="color: var(--color-accent); width: 18px;"></i>
+                        Coordination</div>
+                    <div class="role-item"><i data-lucide="heart" style="color: var(--color-accent); width: 18px;"></i>
+                        Fundraising</div>
+                </div>
+            </div>
+
+            <div class="reveal"
+                style="background: var(--color-surface); padding: 3rem; border-radius: var(--radius-lg); color: var(--color-text);">
+                <form id="vform">
+                    <h3 class="h3" style="margin-bottom: 2rem;">Volunteer Application</h3>
+                    <div style="display: grid; gap: 1.5rem;">
+                        <div>
+                            <label
+                                style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">Full
+                                Name</label>
+                            <input type="text" placeholder="Enter your name" required>
+                        </div>
+                        <div>
+                            <label
+                                style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">WhatsApp
+                                Number</label>
+                            <input type="tel" placeholder="+91 7357354545" required>
+                        </div>
+                        <div>
+                            <label
+                                style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.5rem; display: block;">Interested
+                                Role</label>
+                            <select>
+                                <option>Field Technician</option>
+                                <option>School Coordinator</option>
+                                <option>Fundraising</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">Submit
+                            Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="logo" style="margin-bottom: 1.5rem;">
+                        <i data-lucide="leaf" style="fill: var(--color-accent); stroke: none;"></i>
+                        Care4Schools
+                    </a>
+                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">
+                        A sustainable infrastructure initiative by Kalvi Maram Foundation. We bridge the gap between
+                        government intent and classroom reality.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem; font-weight: 700;">Connect</h4>
+                    <div style="display: grid; gap: 1rem; font-size: 0.95rem;">
+                        <p><i data-lucide="phone" style="width: 16px; margin-right: 8px;"></i> +91 7357354545</p>
+                        <p><i data-lucide="mail" style="width: 16px; margin-right: 8px;"></i> projects@kalvimaram.org
+                        </p>
+                        <p><i data-lucide="map-pin" style="width: 16px; margin-right: 8px;"></i> Tamil Nadu, India</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem; font-weight: 700;">Social Media Handles</h4>
+                    <ul style="list-style: none; display: grid; gap: 0.75rem; font-size: 0.95rem;">
+                        <li><a href="https://www.instagram.com/Care4Schools" target="_blank" rel="noopener noreferrer"
+                                style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;"><i
+                                    data-lucide="instagram" style="width: 16px; flex-shrink: 0;"></i>
+                                Instagram</a></li>
+                        <li><a href="https://www.youtube.com/@Care4Schools" target="_blank" rel="noopener noreferrer"
+                                style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;"><i
+                                    data-lucide="youtube" style="width: 16px; flex-shrink: 0;"></i>
+                                YouTube</a></li>
+                        <li><a href="https://www.facebook.com/Care4Schools" target="_blank" rel="noopener noreferrer"
+                                style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;"><i
+                                    data-lucide="facebook" style="width: 16px; flex-shrink: 0;"></i>
+                                Facebook</a></li>
+                        <li><a href="https://x.com/Care4Schools" target="_blank" rel="noopener noreferrer"
+                                style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;"><i
+                                    data-lucide="at-sign" style="width: 16px; flex-shrink: 0;"></i>
+                                X</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border); text-align: center; color: var(--color-text-muted); font-size: 0.85rem;">
+                © 2024 Kalvi Maram Foundation. All donations are 80G tax-exempt.
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/917357354545" class="whatsapp-float">
+        <i data-lucide="phone"></i>
+    </a>
+
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Generate UPI QR Code
+        new QRCode(document.getElementById('upi-qr-code'), {
+            text: 'upi://pay?pa=kalvimaram@sbi&pn=KALVI%20MARAM%20FOUNDATION',
+            width: 160,
+            height: 160,
+            colorDark: '#15803d',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Theme Toggle (Desktop)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        function toggleTheme() {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            const newIcon = isDark ? 'moon' : 'sun';
+            themeIcon.setAttribute('data-lucide', newIcon);
+            const mobileIcon = document.getElementById('theme-icon-mobile');
+            if (mobileIcon) mobileIcon.setAttribute('data-lucide', newIcon);
+            lucide.createIcons();
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Theme Toggle (Mobile)
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileOverlay = document.getElementById('mobile-drawer-overlay');
+        const mobileDrawerClose = document.getElementById('mobile-drawer-close');
+
+        function openDrawer() {
+            mobileDrawer.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openDrawer);
+        mobileDrawerClose.addEventListener('click', closeDrawer);
+        mobileOverlay.addEventListener('click', closeDrawer);
+
+        // Show/hide mobile theme toggle based on screen size
+        function updateMobileUI() {
+            const isMobile = window.innerWidth < 1024;
+            if (themeToggleMobile) {
+                themeToggleMobile.style.display = isMobile ? 'flex' : 'none';
+            }
+        }
+        updateMobileUI();
+        window.addEventListener('resize', updateMobileUI);
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+
+                    // Trigger counters
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(c => animateCounter(c));
+
+                    // Trigger bars
+                    const bars = entry.target.querySelectorAll('.progress-fill');
+                    bars.forEach(b => b.style.width = b.dataset.width);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        function animateCounter(el) {
+            if (el.dataset.done) return;
+            if (!el.dataset.target) return;
+            const target = +el.dataset.target;
+            if (isNaN(target)) return;
+            const suffix = el.dataset.suffix || '';
+            const step = target / 50;
+            let current = 0;
+            const t = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target.toLocaleString() + suffix;
+                    clearInterval(t);
+                } else {
+                    el.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+            }, 20);
+            el.dataset.done = "true";
+        }
+
+        // Form Submit
+        document.getElementById('vform').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const b = e.target.querySelector('button');
+            b.innerText = "Application Received!";
+            b.style.background = "#22c55e";
+            e.target.reset();
+        });
+
+        // Copy UPI ID
+        function copyUPI() {
+            const upiId = document.getElementById('upi-id').textContent;
+            navigator.clipboard.writeText(upiId).then(() => {
+                const btn = document.getElementById('copy-upi-btn');
+                btn.innerHTML = '<i data-lucide="check" style="width: 14px;"></i> Copied!';
+                btn.style.background = '#22c55e';
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = '<i data-lucide="copy" style="width: 14px;"></i> Copy';
+                    btn.style.background = '';
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+
+</html>
